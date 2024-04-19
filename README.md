@@ -4,6 +4,8 @@ Welcome to the fivem in-game item creator by M-DEVELOPMENT
 # WHAT IS THIS
 
 This script is a simple script which you can use on your server to place objects on all the sides you want on your server without having to configure it with lines of code, using the command that you can configure from Config.lua from the menu you can choose between two options
+
+# OPTIONS
 - Create a prop
 - Delete prop
 
