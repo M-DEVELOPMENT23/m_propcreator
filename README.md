@@ -27,5 +27,5 @@ The script is a script that does not need configuration, the only thing you need
 
 # Creadits
 
-M-DEVELOPMENT 
-Demigod916 <3
+- M-DEVELOPMENT 
+- Demigod916 <3
