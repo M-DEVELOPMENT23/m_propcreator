@@ -22,3 +22,10 @@ The script is a script that does not need configuration, the only thing you need
 
 [PREVIEW](https://streamable.com/axftks)
 [DISCORD](https://discord.gg/R6Z5DdeBzw)
+[TEBEX](https://m-development-webstore.tebex.io/)
+[YOUTUBE](https://www.youtube.com/channel/UCR4M3zK0KXoVKkhyzpKYXlg)
+
+# Creadits
+
+M-DEVELOPMENT 
+Demigod916 <3
