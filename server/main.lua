@@ -1,6 +1,13 @@
-
 RegisterServerEvent('m:propcreator:savepropondb', function(propname, x, y, z, rotationx, rotationy, rotationz)
-    MySQL.insert('INSERT INTO `propcreator` (propname, x, y, z, rotationx, rotationy, rotationz) VALUES (?, ?, ?, ?, ?, ?, ?)', {
+    x = tonumber(string.format("%.2f", x))
+    y = tonumber(string.format("%.2f", y))
+    z = tonumber(string.format("%.2f", z))
+    rotationx = tonumber(string.format("%.2f", rotationx))
+    rotationy = tonumber(string.format("%.2f", rotationy))
+    rotationz = tonumber(string.format("%.2f", rotationz))
+
+    MySQL.insert(
+    'INSERT INTO `propcreator` (propname, x, y, z, rotationx, rotationy, rotationz) VALUES (?, ?, ?, ?, ?, ?, ?)', {
         propname,
         x,
         y,
@@ -11,8 +18,11 @@ RegisterServerEvent('m:propcreator:savepropondb', function(propname, x, y, z, ro
     })
 end)
 
-RegisterServerEvent('m:propcreator:getprops', function()
-    
+
+RegisterServerEvent('m:propcreator:getprops')
+AddEventHandler('m:propcreator:getprops', function()
+    local source = source
+
     local props = MySQL.Sync.fetchAll('SELECT * FROM propcreator')
 
     if props then
@@ -27,38 +37,45 @@ RegisterServerEvent('m:propcreator:getprops', function()
                 rz = prop.rotationz
             }
 
-            TriggerClientEvent("m:propcreator:showprop", -1, data)
+            TriggerClientEvent("m:propcreator:showprop", source, data)
         end
     else
         print("No props found.")
     end
 end)
 
-
+lib.addCommand(Config.Command, {
+    help = 'Open the prop creator',
+    restricted = 'group.admin'
+}, function(source, args, raw)
+    TriggerClientEvent("m:propcreator:opencreator", source)
+end)
 
 RegisterServerEvent("m:propcreator:deleteprop")
-AddEventHandler("m:propcreator:deleteprop", function(propname, x, y, z, rotationx, rotationy, rotationz)
+AddEventHandler("m:propcreator:deleteprop", function(propname, x, y, z)
+    x = tonumber(string.format("%.2f", x))
+    y = tonumber(string.format("%.2f", y))
+    z = tonumber(string.format("%.2f", z))
 
     MySQL.Async.execute(
-        "DELETE FROM propcreator WHERE propname = @propname AND x = @x AND y = @y AND z = @z AND rotationx = @rotationx AND rotationy = @rotationy AND rotationz = @rotationz",
+        "DELETE FROM propcreator WHERE propname = @propname AND x = @x AND y = @y AND z = @z",
         {
             ['@propname'] = propname,
             ['@x'] = x,
             ['@y'] = y,
-            ['@z'] = z,
-            ['@rotationx'] = rotationx,
-            ['@rotationy'] = rotationy,
-            ['@rotationz'] = rotationz
+            ['@z'] = z
         },
         function(rowsChanged)
             if rowsChanged > 0 then
-                print("Elemento eliminado de la base de datos")
+                print("Prop - " .. propname .. " eliminada correctamente")
             else
                 print("No se encontró ningún elemento para eliminar")
             end
         end
     )
 end)
+
+
 
 
 RegisterServerEvent('m:propcreator:getallprops', function()
@@ -68,13 +85,4 @@ RegisterServerEvent('m:propcreator:getallprops', function()
     else
         print("No props found.")
     end
-end)
-
-
-
-lib.addCommand(Config.Command, {
-    help = 'Open the prop creator',
-    restricted = 'group.admin'
-}, function(source, args, raw)
-    TriggerClientEvent("m:propcreator:opencreator", source)
 end)
