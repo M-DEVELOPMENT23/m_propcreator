@@ -56,7 +56,6 @@ function spawnprop(propname)
     end
 end
 
-
 function GetAllProps()
     TriggerServerEvent("m:propcreator:getprops")
 end
@@ -68,24 +67,18 @@ RegisterNetEvent("m:propcreator:showprop", function(data)
 end)
 
 
-RegisterNetEvent("m:propcreator:showallprops", function(data)
-    props = {}
-    for _, prop in ipairs(data) do
-        table.insert(props, prop)
-    end
-    UpdateEventMenu()
-end)
+
 
 function UpdateEventMenu()
     local options = {}
     for index, prop in ipairs(props) do
         table.insert(options, {
-            title = "PROP - "..index,
-            description = "PROP NAME : "..prop.propname.." X : "..prop.x.." Y : "..prop.y.." Z : "..prop.z,
+            title = "PROP - " .. index,
+            description = "PROP NAME : " .. prop.propname .. " X : " .. prop.x .. " Y : " .. prop.y .. " Z : " .. prop.z,
             metadata = {
-                {label = 'Rotation X', value = prop.rx},
-                {label = 'Rotation Y', value = prop.ry},
-                {label = 'Rotation Z', value = prop.rz}
+                { label = 'Rotation X', value = prop.rx },
+                { label = 'Rotation Y', value = prop.ry },
+                { label = 'Rotation Z', value = prop.rz }
             },
             onSelect = function()
                 deleteprop(prop.propname, prop.x, prop.y, prop.z, prop.rx, prop.ry, prop.rz)
@@ -101,12 +94,14 @@ function UpdateEventMenu()
         id = 'prop_menu',
         title = 'Props',
         menu = 'prop_menu',
-        options = options
+        options = options,
+        onExit = function()
+            props = {}
+        end
     })
 
     lib.showContext('prop_menu')
 end
-
 
 function deleteprop(propname, x, y, z, rotationx, rotationy, rotationz)
     TriggerServerEvent("m:propcreator:deleteprop", propname, x, y, z, rotationx, rotationy, rotationz)
@@ -127,7 +122,7 @@ end)
 
 AddEventHandler('onResourceStop', function(resourceName)
     if (GetCurrentResourceName() == resourceName) then
-        DeleteAllProps()            
+        DeleteAllProps()
     end
 end)
 
