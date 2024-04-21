@@ -29,3 +29,7 @@ The script is a script that does not need configuration, the only thing you need
 
 - M-DEVELOPMENT 
 - Demigod916 <3
+
+# IMPORTANT
+
+Do not change the script name
