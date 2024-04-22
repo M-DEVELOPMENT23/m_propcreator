@@ -1,5 +1,5 @@
 # M-PropCreator
-Welcome to the fivem in-game item creator by M-DEVELOPMENT
+Welcome to the fivem in-game prop creator by M-DEVELOPMENT
 
 # WHAT IS THIS
 
