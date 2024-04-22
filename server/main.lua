@@ -1,4 +1,4 @@
-RegisterServerEvent('m:propcreator:savepropondb', function(propname, x, y, z, rotationx, rotationy, rotationz)
+RegisterServerEvent('m:propcreator:savepropondb', function(propname, x, y, z, rotationx, rotationy, rotationz, congelar)
     x = tonumber(string.format("%.2f", x))
     y = tonumber(string.format("%.2f", y))
     z = tonumber(string.format("%.2f", z))
@@ -7,14 +7,15 @@ RegisterServerEvent('m:propcreator:savepropondb', function(propname, x, y, z, ro
     rotationz = tonumber(string.format("%.2f", rotationz))
 
     MySQL.insert(
-    'INSERT INTO `propcreator` (propname, x, y, z, rotationx, rotationy, rotationz) VALUES (?, ?, ?, ?, ?, ?, ?)', {
+    'INSERT INTO `propcreator` (propname, x, y, z, rotationx, rotationy, rotationz, freeze) VALUES (?, ?, ?, ?, ?, ?, ?, ?)', {
         propname,
         x,
         y,
         z,
         rotationx,
         rotationy,
-        rotationz
+        rotationz,
+        congelar
     })
 end)
 
@@ -34,7 +35,8 @@ AddEventHandler('m:propcreator:getprops', function()
                 z = prop.z,
                 rx = prop.rotationx,
                 ry = prop.rotationy,
-                rz = prop.rotationz
+                rz = prop.rotationz,
+                freeze = prop.congelar
             }
 
             TriggerClientEvent("m:propcreator:showprop", source, data)
@@ -44,12 +46,7 @@ AddEventHandler('m:propcreator:getprops', function()
     end
 end)
 
-lib.addCommand(Config.Command, {
-    help = 'Open the prop creator',
-    restricted = 'group.admin'
-}, function(source, args, raw)
-    TriggerClientEvent("m:propcreator:opencreator", source)
-end)
+
 
 RegisterServerEvent("m:propcreator:deleteprop")
 AddEventHandler("m:propcreator:deleteprop", function(propname, x, y, z)
@@ -85,4 +82,12 @@ RegisterServerEvent('m:propcreator:getallprops', function()
     else
         print("No props found.")
     end
+end)
+
+
+lib.addCommand(Config.Command, {
+    help = 'Open the prop creator',
+    restricted = 'group.admin'
+}, function(source, args, raw)
+    TriggerClientEvent("m:propcreator:opencreator", source)
 end)

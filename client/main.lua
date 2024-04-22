@@ -27,16 +27,20 @@ RegisterNetEvent("m:propcreator:opencreator", function()
 end)
 
 function SpawnPropSelected()
-    local input = lib.inputDialog('Prop Creator', { 'Prop Name' })
+    local input = lib.inputDialog('PropCreator', {
+        {type = 'input', label = 'Prop Name', description = 'Insert the prop name to create', required = true},
+        {type = 'checkbox', label = 'Freeze Entity Position?'},
+      })
 
     if not input then return end
 
     if input then
-        spawnprop(input[1])
+        spawnprop(input[1], input[2])
     end
 end
 
-function spawnprop(propname)
+function spawnprop(propname, freeze)
+    local congelar = freeze
     local playerPed = PlayerPedId()
     local offset = GetOffsetFromEntityInWorldCoords(playerPed, 0.0, 1.0, 0.0)
     local model = GetHashKey(propname or "prop_bench_01a")
@@ -50,7 +54,7 @@ function spawnprop(propname)
         local x, y, z = objectPositionData.position.x, objectPositionData.position.y, objectPositionData.position.z
         local rx, ry, rz = objectPositionData.rotation.x, objectPositionData.rotation.y, objectPositionData.rotation.z
         print("Prop Created Successfully")
-        TriggerServerEvent("m:propcreator:savepropondb", propname, x, y, z, rx, ry, rz)
+        TriggerServerEvent("m:propcreator:savepropondb", propname, x, y, z, rx, ry, rz, congelar)
     else
         print("Failed to create prop.")
     end
@@ -110,7 +114,7 @@ end
 RegisterNetEvent('m:propcreator:spawnprops')
 AddEventHandler('m:propcreator:spawnprops', function(props)
     for _, prop in ipairs(props) do
-        SpawnProp(prop.propname, prop.x, prop.y, prop.z, prop.rotationx, prop.rotationy, prop.rotationz)
+        SpawnProp(prop.propname, prop.x, prop.y, prop.z, prop.rotationx, prop.rotationy, prop.rotationz, prop.freeze)
     end
 end)
 
@@ -126,7 +130,8 @@ AddEventHandler('onResourceStop', function(resourceName)
     end
 end)
 
-function SpawnProp(propname, x, y, z, rx, ry, rz)
+
+function SpawnProp(propname, x, y, z, rx, ry, rz, congelar)
     local model = GetHashKey(propname)
     RequestModel(model)
     while not HasModelLoaded(model) do
@@ -134,6 +139,7 @@ function SpawnProp(propname, x, y, z, rx, ry, rz)
     end
     local object = CreateObject(model, x, y, z, true, false, false)
     SetEntityRotation(object, tonumber(rx), tonumber(ry), tonumber(rz))
+    FreezeEntityPosition(object, congelar)
 end
 
 function DeleteAllProps()
