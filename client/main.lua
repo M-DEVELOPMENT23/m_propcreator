@@ -26,6 +26,8 @@ RegisterNetEvent("m:propcreator:opencreator", function()
     lib.showContext('prop_creator_menu')
 end)
 
+
+
 function SpawnPropSelected()
     local input = lib.inputDialog('PropCreator', {
         {type = 'input', label = 'Prop Name', description = 'Insert the prop name to create', required = true},

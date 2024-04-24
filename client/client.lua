@@ -1,9 +1,33 @@
-    local usingGizmo = false
+local usingGizmo = false
+local creado = false
+
+Citizen.CreateThread(function()
+    local Config = Config 
+    while true do
+        Citizen.Wait(0)
+        if creado then
+            local controls = Config.DisableKey.controls
+            local numControls = #controls
+            if controls and numControls > 0 then
+                for i = 1, numControls do
+                    DisableControlAction(0, controls[i], true)
+                end
+            end
+        else
+            Citizen.Wait(100)
+        end
+    end
+end)
 
 local function toggleNuiFrame(bool)
-    usingGizmo = bool
     SetNuiFocus(bool, bool)
+    usingGizmo = bool
+    SetNuiFocusKeepInput(bool)
+    creado = bool
 end
+
+
+
 
 function useGizmo(handle)
 
@@ -47,6 +71,22 @@ function useGizmo(handle)
     }
 end
 
+
+if Config.Framework == "qb-core" then
+    RegisterNetEvent('QBCore:Client:OnPlayerLoaded', function()
+        DeleteAllProps()
+        Wait(1000)
+        TriggerServerEvent('m:propcreator:getallprops')
+    end)
+elseif Config.Framework == "esx" then
+    RegisterNetEvent('esx:playerLoaded')
+    AddEventHandler('esx:playerLoaded', function()
+        DeleteAllProps()
+        Wait(1000)
+        TriggerServerEvent('m:propcreator:getallprops')
+    end)
+end
+
 RegisterNUICallback('moveEntity', function(data, cb)
     local entity = data.handle
     local position = data.position
@@ -86,3 +126,4 @@ end)
 
 
 exports("useGizmo", useGizmo)
+

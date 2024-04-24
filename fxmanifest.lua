@@ -3,7 +3,7 @@ game 'gta5'
 lua54 'yes'
 author = "MANU - M-DEVELOPMENT TEAM"
 ui_page 'web/dist/index.html'
-
+version '1.0'
 client_scripts {
 	"client/*.lua"
 }
