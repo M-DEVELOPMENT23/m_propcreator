@@ -2,7 +2,7 @@ Config = {}
 
 Config.Debug = false
 
-Config.Framework = "qb-core"
+Config.Framework = "" -- esx / qb-core
 
 Config.Command = "propcreator"
 

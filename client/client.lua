@@ -85,6 +85,8 @@ elseif Config.Framework == "esx" then
         Wait(1000)
         TriggerServerEvent('m:propcreator:getallprops')
     end)
+else
+    print("You don't have selected a framework in the config.lua")
 end
 
 RegisterNUICallback('moveEntity', function(data, cb)
