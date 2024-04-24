@@ -1,6 +1,7 @@
 # M-PropCreator
 Welcome to the fivem in-game prop creator by M-DEVELOPMENT
-
+# SO IMPORTANT
+DOWNLOAD THE LATEST VERSION !!!!
 # WHAT IS THIS
 
 This script is a simple script which you can use on your server to place objects on all the sides you want on your server without having to configure it with lines of code, using the command that you can configure from Config.lua from the menu you can choose between two options
