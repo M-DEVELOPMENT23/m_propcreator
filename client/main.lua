@@ -30,6 +30,7 @@ end)
 
 function SpawnPropSelected()
     local input = lib.inputDialog('PropCreator', {
+        {type = 'input', label = 'Description', description = 'Good for naming the location', required = true},
         {type = 'input', label = 'Prop Name', description = 'Insert the prop name to create', required = true},
         {type = 'checkbox', label = 'Freeze Entity Position?'},
       })
@@ -37,11 +38,11 @@ function SpawnPropSelected()
     if not input then return end
 
     if input then
-        spawnprop(input[1], input[2])
+        spawnprop(input[1], input[2], input[3])
     end
 end
 
-function spawnprop(propname, freeze)
+function spawnprop(propdesc, propname, freeze)
     local congelar = freeze
     local playerPed = PlayerPedId()
     local offset = GetOffsetFromEntityInWorldCoords(playerPed, 0.0, 1.0, 0.0)
@@ -56,7 +57,7 @@ function spawnprop(propname, freeze)
         local x, y, z = objectPositionData.position.x, objectPositionData.position.y, objectPositionData.position.z
         local rx, ry, rz = objectPositionData.rotation.x, objectPositionData.rotation.y, objectPositionData.rotation.z
         print("Prop Created Successfully")
-        TriggerServerEvent("m:propcreator:savepropondb", propname, x, y, z, rx, ry, rz, congelar)
+        TriggerServerEvent("m:propcreator:savepropondb", propdesc, propname, x, y, z, rx, ry, rz, congelar)
     else
         print("Failed to create prop.")
     end
@@ -79,7 +80,7 @@ function UpdateEventMenu()
     local options = {}
     for index, prop in ipairs(props) do
         table.insert(options, {
-            title = "PROP - " .. index,
+            title = prop.propdesc or ("PROP - " .. index),
             description = "PROP NAME : " .. prop.propname .. " X : " .. prop.x .. " Y : " .. prop.y .. " Z : " .. prop.z,
             metadata = {
                 { label = 'Rotation X', value = prop.rx },
