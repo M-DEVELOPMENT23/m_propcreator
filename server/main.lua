@@ -1,4 +1,4 @@
-RegisterServerEvent('m:propcreator:savepropondb', function(propname, x, y, z, rotationx, rotationy, rotationz, congelar)
+RegisterServerEvent('m:propcreator:savepropondb', function(propdesc, propname, x, y, z, rotationx, rotationy, rotationz, congelar)
     x = tonumber(string.format("%.2f", x))
     y = tonumber(string.format("%.2f", y))
     z = tonumber(string.format("%.2f", z))
@@ -7,7 +7,8 @@ RegisterServerEvent('m:propcreator:savepropondb', function(propname, x, y, z, ro
     rotationz = tonumber(string.format("%.2f", rotationz))
 
     MySQL.insert(
-    'INSERT INTO `propcreator` (propname, x, y, z, rotationx, rotationy, rotationz, freeze) VALUES (?, ?, ?, ?, ?, ?, ?, ?)', {
+    'INSERT INTO `propcreator` (propdesc, propname, x, y, z, rotationx, rotationy, rotationz, freeze) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)', {
+        propdesc,
         propname,
         x,
         y,
@@ -29,6 +30,7 @@ AddEventHandler('m:propcreator:getprops', function()
     if props then
         for _, prop in ipairs(props) do
             local data = {
+                propdesc = prop.propdesc,
                 propname = prop.propname,
                 x = prop.x,
                 y = prop.y,
