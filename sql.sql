@@ -2,6 +2,7 @@
 CREATE TABLE IF NOT EXISTS `propcreator` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `propname` varchar(255) NOT NULL,
+  `propdesc` varchar(255) NOT NULL,
   `x` double NOT NULL,
   `y` double NOT NULL,
   `z` double NOT NULL,
