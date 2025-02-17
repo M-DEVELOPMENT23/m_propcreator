@@ -1,14 +1,15 @@
-RegisterServerEvent('m:propcreator:savepropondb', function(propdesc, propname, x, y, z, rotationx, rotationy, rotationz, congelar)
+RegisterServerEvent('m:propcreator:savepropondb', function(propname, x, y, z, rotationx, rotationy, rotationz, congelar)
     x = tonumber(string.format("%.2f", x))
     y = tonumber(string.format("%.2f", y))
     z = tonumber(string.format("%.2f", z))
     rotationx = tonumber(string.format("%.2f", rotationx))
     rotationy = tonumber(string.format("%.2f", rotationy))
     rotationz = tonumber(string.format("%.2f", rotationz))
+    
+    local freezeValue = congelar and 1 or 0
 
     MySQL.insert(
-    'INSERT INTO `propcreator` (propdesc, propname, x, y, z, rotationx, rotationy, rotationz, freeze) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)', {
-        propdesc,
+    'INSERT INTO `propcreator` (propname, x, y, z, rotationx, rotationy, rotationz, freeze) VALUES (?, ?, ?, ?, ?, ?, ?, ?)', {
         propname,
         x,
         y,
@@ -16,10 +17,9 @@ RegisterServerEvent('m:propcreator:savepropondb', function(propdesc, propname, x
         rotationx,
         rotationy,
         rotationz,
-        congelar
+        freezeValue
     })
 end)
-
 
 RegisterServerEvent('m:propcreator:getprops')
 AddEventHandler('m:propcreator:getprops', function()
