@@ -1,6 +1,4 @@
-------------------------
---- Save Prop To DB ----
-------------------------
+
 RegisterNetEvent("m:propcreator:savePropPosition")
 AddEventHandler("m:propcreator:savePropPosition", function(model, x, y, z, heading, collision, frozen)
     local propid = tostring(math.random(100000, 999999))
@@ -18,9 +16,7 @@ AddEventHandler("m:propcreator:savePropPosition", function(model, x, y, z, headi
     })
 end)
 
----------------------------
---- Take Props From DB ----
---- -----------------------
+
 RegisterNetEvent("m:propcreator:TakePropsInfo")
 AddEventHandler("m:propcreator:TakePropsInfo", function()
     local src = source
@@ -35,9 +31,7 @@ AddEventHandler("m:propcreator:TakePropsInfo", function()
         end
     end)
 end)
-------------------------------
---- Removes Specific Prop ----
-------------------------------
+
 RegisterNetEvent('m:propcreator:RemoveProp')
 AddEventHandler('m:propcreator:RemoveProp', function(propid)
 
@@ -47,9 +41,7 @@ AddEventHandler('m:propcreator:RemoveProp', function(propid)
 
     TriggerClientEvent("m:propcreator:DeleteAllProps", -1)
 end)
-------------------------------
---- Removes All Prop ---------
-------------------------------
+
 RegisterNetEvent('m:propcreator:RemoveAllProps')
 AddEventHandler('m:propcreator:RemoveAllProps', function()
     local query = "DELETE FROM mprops"
