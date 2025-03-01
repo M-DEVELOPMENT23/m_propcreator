@@ -22,7 +22,7 @@ function LoadPropsFromDB(event)
             TriggerClientEvent('m:propcreator:createremovemenu', src, result)
         end)
     else
-        print("^1[ERROR] Invalid event or source in LoadPropsFromDB.^0") -- Manejo de errores
+        print("^1[ERROR] Invalid event or source in LoadPropsFromDB.^0") 
     end
 end
 
