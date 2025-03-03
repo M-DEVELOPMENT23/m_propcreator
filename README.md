@@ -9,7 +9,6 @@
 -   [Available Events](#available-events-)
 -   [Controls](#controls-)
 -   [Optimization](#optimization-)
--   [Dependencies](#dependencies-)
 -   [License](#license-)
 
 ## Description 📜
