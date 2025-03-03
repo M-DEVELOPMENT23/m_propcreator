@@ -10,8 +10,6 @@
 -   [Controls](#controls-)
 -   [Optimization](#optimization-)
 -   [Dependencies](#dependencies-)
--   [Support](#support-)
--   [Credits](#credits-‍)
 -   [License](#license-)
 
 ## Description 📜
